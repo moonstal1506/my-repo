@@ -1,0 +1,24 @@
+백업
+
+#원격 저장소 연결
+git remote add origin https://github.com/닉네임/레포이름.git
+
+#원격 저장소 확인
+$ git remote -v
+
+#올리기
+$ git push
+
+#처음 할때 어떤 원격저장소랑 기본적으로 연결할지
+$ git push --set-upstream origin master
+
+#에러: 제어판>웹자격증명>깃허브 삭제> 일반자격증명 추가>
+https://api.github.com/변경할 계정 이름>푸시>로그인
+remote: Permission to aaa/my-repo.git denied to aaa.
+fatal: unable to access 'https://github.com/aaa/my-repo.git/': The requested URL returned error: 403
+
+#복제: code 들어가서 카피
+$ git clone https://github.com/my-repo.git
+
+#내려받기
+$ git pull

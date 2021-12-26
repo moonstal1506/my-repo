@@ -1,0 +1,61 @@
+깃 버전 관리
+
+#지금 계정 확인하기
+$ git config user.name
+$ git config user.email
+
+#계정바꾸기
+$ git config --global user.name 닉네임
+$ git config --global user.email aaaa@gmail.com
+
+#버전관리 시작
+$ git init .
+
+#상태 확인
+$ git status
+
+#staging area에 추가
+$ git add hello1.txt
+
+#버전 만들기
+$ git commit -m "Message 1"
+
+#깃 버전 보기
+$ git log
+
+-working tree: 수정한 것
+-staging area: add한 것
+-repository: 커밋한 것
+
+#파일 상태 확인
+$ git log --stat
+
+#차이점 확인
+$ git diff
+
+#이전 상태로
+$ git reset --hard
+
+#변화 확인
+$ git log -p
+
+#버전만든 시점으로 돌아가기
+$ git checkout 2ecdf
+
+#최신버전으로 돌아가기
+$ git checkout master
+
+#현재 폴더 안 모두 add
+$ git add .
+
+#add와 m둘다/최초한번은 add 되어야 가능
+$ git commit -am "4"
+
+#리셋-eb952b4버전으로 돌아간다
+$ git reset --hard eb952b4
+
+#에디터 변경
+$ git config --global core.editor "nano"
+
+#되돌리기-역순으로 해야함
+$ git revert eecdc338

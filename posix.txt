@@ -1,0 +1,32 @@
+#posix cli: portable operating system interface
+-emulator 설치:git Bash
+-create/read/update/delete할거임
+
+#명령어
+-pwd: 내가 어디 있는가
+-cd: change directory
+-cd ~: 홈디렉토리로
+-ls: 파일 리스트
+-ls --help: 매뉴얼
+-ls -l:list long
+-touch showfile.txt: 빈 파일 만들기
+-touch .hiddenfile.txt: '.'은 숨김파일 만들기
+-ls -a: 숨긴 파일까지 다보기
+-ls -la: l과 a둘다
+-mkdir posix: posix라는 폴더 만들기
+-mv dummy dummy1:더미폴더 더미1로 이름바꿈
+-rm -r dummy1: 폴더지우기
+-cd ../:부모폴더
+-cd /Users/live/posix: 절대경로 이동
+-cd ./posix: 상대경로 이동
+-nano: 텍스트 에디터 새파일만듦
+-nano hello.txt: 파일 읽기
+-cat hello.txt: 화면에 출력
+-mv hello.txt hello_world.txt: 파일이름바꿈
+-mv hello_world.txt ../hello_world.txt: 파일 상위 폴더로 이동
+-컨트롤 c:취소
+-rm hello_world.txt: 파일 삭제
+-ls -R: 폴더 밑에 파일까지 보여줌
+-mkdir dummy; cd dummy; touch hello.txt;cd ..; ls -R: ';' 지금까지 한거 한번에
+-mkdir dummy&& cd dummy&&touch hello.txt&&cd ..&&ls -R: '&&' 실패하면 멈추기
+
