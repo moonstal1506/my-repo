@@ -1,0 +1,276 @@
+##branch & conflict
+#세팅
+$ mkdir manual
+$ git init
+$ ls -al
+$ nano work.txt
+$ git status
+$ git add work.txt
+$ git commit -m "work1"
+$ git log
+$ nano work.txt
+$ git commit -am "work2"
+
+$ git log -p
+:각각의 버전마다 차이점 확인
+
+#브랜치
+$ git log --all --graph --oneline
+* c2fe51b (HEAD -> master) work3
+* db2fb4f work2
+* 5ba8750 work1
+:모든 브랜치, 시각적, 한줄
+
+$ git branch
+:브랜치 목록확인
+
+$ git branch apple
+:애플 브랜치 생성
+
+$ git branch
+  apple
+* master
+
+$ git log --all --graph --oneline
+* c2fe51b (HEAD -> master, apple) work3
+* db2fb4f work2
+* 5ba8750 work1
+
+$ git branch google
+
+$ git log --all --graph --oneline
+* c2fe51b (HEAD -> master, google, apple) work3
+* db2fb4f work2
+* 5ba8750 work1
+
+$ git commit -am "master work4"
+
+$ git log --all --graph --oneline
+* aaa57e7 (HEAD -> master) master work4
+* c2fe51b (ms, google, apple) work3
+* db2fb4f work2
+* 5ba8750 work1
+
+$ git checkout apple
+Switched to branch 'apple'
+
+$ git log --all --graph --oneline
+* aaa57e7 (master) master work4
+* c2fe51b (HEAD -> apple, ms, google) work3
+* db2fb4f work2
+* 5ba8750 work1
+
+$ git checkout master
+Switched to branch 'master'
+
+$ git add .
+모든 파일 add
+
+$ git commit -m "apple work 4"
+
+$ git log --all --graph --oneline
+* d5221ae (HEAD -> apple) apple work 4
+| * aaa57e7 (master) master work4
+|/
+* c2fe51b (ms, google) work3
+* db2fb4f work2
+* 5ba8750 work1
+
+$ git checkout google
+Switched to branch 'google'
+
+$ git log --all --graph --oneline
+* d5221ae (apple) apple work 4
+| * aaa57e7 (master) master work4
+|/
+* c2fe51b (HEAD -> google, ms) work3
+* db2fb4f work2
+* 5ba8750 work1
+:헤드가 구글
+
+$ git add .
+$ git commit -m "google work 4"
+
+$ git log --all --graph --oneline
+* 182d390 (HEAD -> google) google work 4
+| * d5221ae (apple) apple work 4
+|/
+| * aaa57e7 (master) master work4
+|/
+* c2fe51b (ms) work3
+* db2fb4f work2
+* 5ba8750 work1
+:헤드 구글 부모는 work3
+
+$ git checkout ms
+$ git add .
+$ git commit -m "ms work4"
+
+$ git log --all --graph --oneline
+* 0ba3e87 (HEAD -> ms) ms work4
+| * 182d390 (google) google work 4
+|/
+| * d5221ae (apple) apple work 4
+|/
+| * aaa57e7 (master) master work4
+|/
+* c2fe51b work3
+* db2fb4f work2
+* 5ba8750 work1
+
+#merge
+-공통조상: base
+
+$ git init manual-merge
+manual-merge 폴더 만들고 git init
+
+$ cd manual-merge
+$ nano work.txt
+$ git add work.txt
+$ git commit -m "work 1"
+$ git log
+$ git branch o2
+$ nano master.txt
+$ git add master.txt
+$ git commit -am "work 2"
+
+$ git commit --amend
+커밋메세지 수정
+
+$ git checkout o2
+$ nano o2.txt
+$ git add o2.txt
+$ git commit -m "o2 work 2"
+
+$ git log --all --graph --oneline
+* e4f1dc0 (HEAD -> o2) o2 work 2
+| * cd5049d (master) master work 2
+|/
+* 843c039 work 1
+
+$ git checkout master
+
+$ git merge o2
+마스터에 o2 땡겨오기
+
+$ git log --all --graph --oneline
+*   66bd87b (HEAD -> master) Merge branch 'o2'
+|\
+| * e4f1dc0 (o2) o2 work 2
+* | cd5049d master work 2
+|/
+* 843c039 work 1
+
+$ git reset --hard cd5049d
+마스터 work2로 되돌리기
+
+#같은 파일, 다른 부분병합
+$ git init manual-merge
+$ cd manual-merge
+$ nano work.txt
+$ git add work.txt
+$ git commit -m "1"
+$ git branch o2
+$ nano work.txt
+$ git commit -am "master work 2"
+$ git log --all --graph --oneline
+* 71cf779 (HEAD -> master) master work 2
+* 5c18ebc (o2) 1
+
+$ git checkout o2
+$ nano work.txt
+$ git commit -am "o2 work 2"
+$ git log --all --graph --oneline
+* 64015ff (HEAD -> o2) o2 work 2
+| * 71cf779 (master) master work 2
+|/
+* 5c18ebc 1
+
+$ git checkout master
+$ git merge o2
+$ cat work.txt
+#title
+master content
+
+#title
+o2 content
+:합쳐줌
+
+#같은 파일, 같은 부분 병합
+$ git init manual-merge
+$ cd manual-merge
+$ nano work.txt
+$ git add work.txt
+$ git commit -m "work 1"
+$ git branch o2
+$ nano work.txt
+$ git commit -am "master work2"
+$ git checkout o2
+$ nano work.txt
+$ git add work.txt
+$ git commit -m "o2 work 2"
+$ git log --all --graph --oneline
+* fb32f06 (HEAD -> o2) o2 work 2
+| * 6073f67 (master) master work2
+|/
+* 1a62b4a work 1
+
+$ git checkout master
+$ git merge o2
+ 충돌 발생
+
+$ git status
+both modified:   work.txt
+
+$ nano work.txt
+#title
+content
+<<<<<<< HEAD
+master
+=======
+o2
+>>>>>>> o2
+#title
+content
+
+$ git add work.txt
+충돌해결 후 add
+
+$ git status
+ modified:   work.txt
+
+$ git commit
+$ git log --all --graph --oneline
+*   63b26d8 (HEAD -> master) Merge branch 'o2'
+|\
+| * fb32f06 (o2) o2 work 2
+* | 6073f67 master work2
+|/
+* 1a62b4a work 1
+
+#3way merge
+-공통조상 base기준
+-둘다 바뀌면 충돌
+-한곳 바뀌면 그곳으로 업데이트
+-p4merge
+
+$git config --global merge.tool p4mergetool
+깃의 전역설정 머지툴 p4mergetool
+
+$cat ~/.gitconfig
+[merge] tool =p4mergetool
+
+$git mergetool
+머지툴 실행
+
+$cat work.txt.orig
+원래 것-충돌난것
+
+$rm work.txt.orig
+지우기
+
+$git commit
+
+#checkout vs reset
+checkout은 head를 바꾸는 것-옮김 (브랜치)
+reset은 branch를 바꾸는 것 -삭제 (5f90e4e)
