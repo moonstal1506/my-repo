@@ -1,0 +1,70 @@
+##협업
+
+#혼자
+$ git init a
+$ cd a
+$ nano work.txt
+$ git add work.txt
+$ git commit -m "work 1"
+$ git remote add origin https://github.com/moon
+$ git push -u origin master
+페어링시키기 한번만
+
+#같이
+세팅>Manage access>add people>참여자 승인>협업자 code 주소카피
+
+$git clone https://github.com/moos b
+b라고 하는 디렉토리에 원격저장소 생성
+
+#push&pull
+a:
+$nano work.txt
+$git commit -am "work 2a"
+$git push
+
+b:
+$git pull
+원래는 해야함
+안하면->
+$nano work.txt
+$git commit -am "work 2b"
+$git push
+rejected
+
+$git pull
+충돌해결해야함
+
+$nano work.txt
+해결하러 감
+
+$git add work.txt
+$git commit
+$git log
+$git push
+
+a:
+$git pull
+
+#원격 브랜치와 fetch
+
+a:
+$nano work.txt
+$git commit -am "work 3"
+$git log
+마스터가 오리진 마스터보다 앞에 있음
+
+$git push
+같아짐
+
+b:
+$git fetch
+신중하게 가져오고 싶을때
+
+$git log
+오리진 마스터가 마스터보다 앞에 있음
+
+$git pull 또는 $git merge origin/master
+:git pull=fetch->git merge origin/master
+
+$git log
+같아짐
