@@ -1,0 +1,43 @@
+스프링 시작
+
+설치
+#자바11  
+https://www.oracle.com/java/technologies/downloads/#java11-windows
+JDK(JAVA Development Kit) : 자바로 개발을 할 수 있는 환경구성
+환경변수
+-변수 이름:JAVA_HOME
+-변수 값:C:\Program Files\Java\jdk-11.0.11
+-변수 이름 : CLASSPATH
+-변수 값 : %JAVA_HOME%\lib
+-Path:새로 만들기  %JAVA_HOME%\bin
+-cmd: java -version, javac -version
+
+#IntelliJ
+https://www.jetbrains.com/ko-kr/idea/download/#section=windows
+-Community 다운
+-C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2021.3.1
+-Create Desktop Shortcut : 바탕화면에 바로가기 
+-Update PATH variable : 윈도우 환경 변수에 PATH를 자동으로 추가(체크)
+-Update context menu : 폴더 우클릭 IntelliJ에서 열기
+-Create Association : .java, .groovy, .kt, .kts 확장자 파일을 클릭했을 때 IntelliJ로 실행
+-Download and install 32-bit JetBrains Runtime : 32비트 용도 같이 설치
+
+#프로젝트 생성
+https://start.spring.io/
+-보통 gradle: 버전설정, 라이브러리 가져오기
+-스프링 부트: 스냅샷 말고
+-그룹: 회사 도메인
+-Dependencies: Spring Web, Thymeleaf
+->generate
+-IntelliJ>오픈 >빌드.gradle>오픈as프로젝트
+-sourceCompatibility = '11' 자바버전
+
+#실행
+-Gradle 대신에 자바:실행속도가 더 빠름
+-file Setting
+ Build and run using: Gradle IntelliJ IDEA
+ Run tests using: Gradle IntelliJ IDEA
+
+
+
+@인프런 강의: 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
